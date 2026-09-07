@@ -18,29 +18,30 @@
 
         body {
             font-family: 'Playfair Display', serif;
-            background: #fafafa;
-            color: #222;
+            background: #fafafa; /*фон*/
+            color: #222; /*основной текст*/
             line-height: 1.8;
             padding: 0 24px;
         }
 
-        /* Шапка — современная, без фона, только линия */
+        /*шапка*/
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 16px 24px;
-            padding: 20px 0 14px;
+            flex-wrap: wrap; /*перенос*/
+            gap: 16px 24px; /*отступы между элементами: вер., гор.*/
+            padding: 20px 0 14px; /*внутренние отступы*/
             border-bottom: 1px solid #eee;
-            margin-bottom: 40px;
+            margin-bottom: 40px; /*отступ снизу, от шапки*/
         }
 
+        /*логотип*/
         h1 {
             font-size: 26px;
             font-weight: 700;
             color: #222;
-            letter-spacing: -0.3px;
+            letter-spacing: -0.3px; /*сжатие между буквами*/
         }
         h1 span {
             color: #b03f35;
@@ -51,6 +52,7 @@
             flex-wrap: wrap;
             gap: 20px 28px;
         }
+        /*стили для ссылок*/
         nav a {
             font-family: 'Playfair Display', serif;
             font-size: 16px;
@@ -61,20 +63,23 @@
             padding: 2px 0;
             transition: 0.2s;
         }
+        /*наведение на ссылку*/
         nav a:hover {
             color: #b03f35;
             border-bottom-color: #b03f35;
         }
+        /*ссылка "Контакты"*/
         nav a[href="#footer"] {
             color: #b03f35;
             font-weight: 600;
         }
+        /*наведение на контакты*/
         nav a[href="#footer"]:hover {
             color: #79553d;
             border-bottom-color: #79553d;
         }
 
-        /* Секции — чистый белый фон, крупные отступы */
+        /*секции*/
         main section {
             padding: 24px 0 40px;
             max-width: 1200px;
@@ -93,7 +98,7 @@
             letter-spacing: -0.2px;
         }
 
-        /* О компании — текст слева (50%), картинка справа (50%) */
+        /*о компании*/
         .about-wrap {
             display: flex;
             flex-wrap: wrap;
