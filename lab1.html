@@ -88,18 +88,17 @@
             margin-bottom: 16px;
         }
 
-        /* О компании — текст слева, картинка справа */
+        /* О компании — текст слева (50%), картинка справа (50%) */
         .about-wrap {
             display: flex;
-            flex-direction: row;
-            align-items: flex-start;    /* выравнивание по верхнему краю */
-            gap: 30px;
-            flex-wrap: wrap;            /* на мобилках переносим */
+            flex-wrap: wrap;
+            align-items: flex-start;
         }
         .about-wrap .about-text {
-            flex: 1 1 300px;            /* занимает доступное пространство */
-            min-width: 200px;
-            text-align: justify;        /* выравнивание по ширине */
+            flex: 0 0 50%;
+            max-width: 50%;
+            padding-right: 30px;          /* отступ между текстом и картинкой */
+            text-align: justify;
             font-size: 20px;
             color: #4a3a2e;
         }
@@ -107,8 +106,8 @@
             color: #a55b4b;
         }
         .about-wrap .about-image {
-            flex: 0 0 380px;           /* фиксированная ширина, можно менять */
-            max-width: 100%;
+            flex: 0 0 50%;
+            max-width: 50%;
         }
         .about-wrap .about-image img {
             width: 100%;
@@ -225,26 +224,22 @@
             text-decoration: underline;
         }
 
-        /* Адаптивность */
-        @media (max-width: 700px) {
-            .about-wrap {
-                flex-direction: column;
-                align-items: stretch;
+        /* Адаптивность: на узких экранах переключаем в колонку */
+        @media (max-width: 768px) {
+            .about-wrap .about-text,
+            .about-wrap .about-image {
+                flex: 0 0 100%;
+                max-width: 100%;
+                padding-right: 0;
             }
             .about-wrap .about-image {
-                flex: 0 0 auto;
-                width: 100%;
-                max-width: 400px;
-                margin: 0 auto;
+                margin-top: 20px;
             }
         }
 
         @media (max-width: 600px) {
             header, main section, footer {
                 padding: 18px 16px;
-            }
-            .about-wrap .about-image {
-                max-width: 100%;
             }
         }
     </style>
