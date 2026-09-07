@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Лабораторная 1 | Бизнес-ланчи</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Универсальный селектор — box-sizing и сброс отступов */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #fcf9f6;
+            color: #1e1e1e;
+            line-height: 1.6;
+            padding: 0 20px;
+        }
+
+        /* ШАПКА */
+        header {
+            background: #fff;
+            padding: 18px 28px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+        h1 span {
+            color: #e67e22;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px 24px;
+        }
+        nav a {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            color: #2c3e50;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            padding: 4px 0;
+            transition: 0.2s;
+        }
+        nav a:hover {
+            color: #e67e22;
+            border-bottom-color: #e67e22;
+        }
+        /* Якорная ссылка "Контакты" */
+        nav a[href="#footer"] {
+            color: #e67e22;
+            font-weight: 600;
+        }
+        nav a[href="#footer"]:hover {
+            color: #c0392b;
+            border-bottom-color: #c0392b;
+        }
+
+        /* ВСЕ СЕКЦИИ В MAIN */
+        main section {
+            background: #fff;
+            padding: 28px 32px;
+            margin-bottom: 28px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        }
+        main section h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 18px;
+            border-left: 5px solid #e67e22;
+            padding-left: 14px;
+        }
+
+        /* Блок "О компании" */
+        .about-wrap {
+            display: flex;
+            gap: 28px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        .about-wrap img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+        .about-wrap p {
+            font-size: 15px;
+            font-weight: 400;
+            color: #2d2d2d;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        /* Список преимуществ */
+        ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+        }
+        ul li {
+            background: #f8f4f0;
+            padding: 14px 16px 14px 42px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 400;
+            color: #2d2d2d;
+            position: relative;
+        }
+        ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            font-weight: 700;
+            color: #e67e22;
+        }
+        ul li strong {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        /* ТАБЛИЦА */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+        th,
+        td {
+            padding: 12px 14px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background: #2c3e50;
+            color: #fff;
+            font-weight: 600;
+        }
+        tbody tr:nth-child(even) td {
+            background: #faf7f4;
+        }
+        tbody tr:hover td {
+            background: #f3ede8;
+        }
+        .price {
+            font-weight: 600;
+            color: #e67e22;
+            text-align: center;
+        }
+        .weight {
+            text-align: center;
+            color: #555;
+        }
+
+        /* ФУТЕР */
+        footer {
+            background: #000;
+            color: #fff;
+            padding: 28px 32px;
+            margin-top: 18px;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px 28px;
+        }
+        footer .brand {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        footer .brand span {
+            color: #e67e22;
+        }
+        footer .copy {
+            font-size: 13px;
+            color: #888;
+            margin-top: 4px;
+        }
+        footer .contacts {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        footer .contacts p,
+        footer .contacts a {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: #eee;
+            text-decoration: none;
+        }
+        footer .contacts a:hover {
+            color: #e67e22;
+            text-decoration: underline;
+        }
+
+        /* Лёгкая адаптация для мобильных */
+        @media (max-width: 600px) {
+            header,
+            main section,
+            footer {
+                padding: 18px 16px;
+            }
+            .about-wrap img {
+                width: 100%;
+                height: auto;
+                max-height: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>🍱 <span>Ланч</span>Box</h1>
+        <nav>
+            <a href="#">Главная</a>
+            <a href="#">Меню</a>
+            <a href="#">Акции</a>
+            <a href="#footer">Контакты</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- О компании -->
+        <section>
+            <h2>О компании</h2>
+            <div class="about-wrap">
+                <img src="images/lunch.jpg" alt="Набор бизнес-ланчей">
+                <p>
+                    <strong>«ЛанчBox»</strong> — доставка свежих бизнес-ланчей в Москве.
+                    Готовим из фермерских продуктов, без консервантов. Собирайте свой
+                    идеальный обед из 15+ блюд и получайте заказ за 60 минут.
+                </p>
+            </div>
+        </section>
+
+        <!-- Преимущества -->
+        <section>
+            <h2>Почему выбирают нас</h2>
+            <ul>
+                <li><strong>Свежие продукты</strong><br>Ежедневные поставки от фермеров.</li>
+                <li><strong>Бесплатная доставка</strong><br>От 1500 ₽ — доставим за 60 минут.</li>
+                <li><strong>Гибкое меню</strong><br>Диетические, сытные, вегетарианские.</li>
+            </ul>
+        </section>
+
+        <!-- Популярные блюда -->
+        <section>
+            <h2>Популярные блюда</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Блюдо</th>
+                        <th>Состав</th>
+                        <th>Вес (г)</th>
+                        <th>Цена (₽)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Курица с гречкой</td>
+                        <td>Филе, гречка, салат</td>
+                        <td class="weight">350</td>
+                        <td class="price">420</td>
+                    </tr>
+                    <tr>
+                        <td>Лосось с рисом</td>
+                        <td>Сёмга, бурый рис, спаржа</td>
+                        <td class="weight">380</td>
+                        <td class="price">590</td>
+                    </tr>
+                    <tr>
+                        <td>Паста с овощами</td>
+                        <td>Паста, цукини, томатный соус</td>
+                        <td class="weight">400</td>
+                        <td class="price">380</td>
+                    </tr>
+                    <tr>
+                        <td>Говядина с картофелем</td>
+                        <td>Говядина, картофель, грибной соус</td>
+                        <td class="weight">420</td>
+                        <td class="price">520</td>
+                    </tr>
+                    <tr>
+                        <td>Салат с тунцом</td>
+                        <td>Тунец, микс-салат, яйцо</td>
+                        <td class="weight">280</td>
+                        <td class="price">350</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <footer id="footer">
+        <div>
+            <div class="brand">🍱 <span>Ланч</span>Box</div>
+            <div class="copy">© 2026 Доставка бизнес-ланчей</div>
+        </div>
+        <div class="contacts">
+            <p><a href="tel:+74951234567">+7 (495) 123-45-67</a></p>
+            <p><a href="mailto:order@lunchbox.ru">order@lunchbox.ru</a></p>
+            <p style="font-size:13px; color:#888; margin-top:2px;">г. Москва, Тверская, 12</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
