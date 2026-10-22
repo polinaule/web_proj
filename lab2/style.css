@@ -1,0 +1,127 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Playfair Display', serif;
+    background: #fafafa;
+    color: #222;
+    line-height: 1.8;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+    width: 100%;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px 24px;
+    padding: 20px 0 14px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 40px;
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #222;
+    letter-spacing: -0.3px;
+}
+
+h1 span {
+    color: #b03f35;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+nav a {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #444;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    padding: 2px 0;
+    transition: 0.2s;
+}
+
+nav a:hover {
+    color: #b03f35;
+    border-bottom-color: #b03f35;
+}
+
+nav a.active {
+    color: #b03f35;
+    font-weight: 700;
+}
+
+footer {
+    max-width: 1200px;
+    width: 100%;
+    margin: 20px auto 0;
+    padding: 32px 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px 30px;
+    border-top: 1px solid #eee;
+    color: #555;
+    font-size: 14px;
+}
+
+footer .brand { font-size: 20px; font-weight: 700; color: #222; }
+footer .brand span { color: #b03f35; }
+footer .copy { color: #888; margin-top: 4px; font-size: 13px; }
+footer .contacts { display: flex; flex-direction: column; gap: 2px; text-align: right; }
+footer .contacts p, footer .contacts a { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 400; color: #444; text-decoration: none; }
+footer .contacts a:hover { color: #b03f35; }
+footer .contacts .address { font-size: 13px; color: #999; margin-top: 2px; }
+
+/* Адаптивность общих элементов */
+@media (max-width: 800px) {
+    nav {
+        justify-content: space-between;
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    h1 {
+        text-align: center;
+        width: 100%;
+    }
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+    nav a {
+        font-size: 20px;
+    }
+    footer {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+    footer .contacts {
+        text-align: left;
+    }
+}
