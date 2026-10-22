@@ -8,49 +8,174 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Подключаем общие стили -->
     <link rel="stylesheet" href="style.css">
+    
     <style>
+        /* Специфичные стили для главной страницы лаб. 2 */
         main section {
             padding: 24px 0 40px;
             max-width: 1200px;
             margin: 0 auto;
             border-bottom: 1px solid #f0f0f0;
         }
-        main section:last-of-type { border-bottom: none; }
-        h2 { font-size: 28px; font-weight: 700; color: #79553d; margin-bottom: 24px; letter-spacing: -0.2px; }
-        .about-wrap { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 40px; }
-        .about-wrap .about-text { flex: 1 1 45%; min-width: 280px; text-align: justify; font-size: 18px; font-weight: 400; color: #333; line-height: 1.9; }
-        .about-wrap .about-text strong { color: #b03f35; font-weight: 700; }
-        .about-wrap .about-image { flex: 1 1 45%; min-width: 280px; }
-        .about-wrap .about-image img { width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06); display: block; }
-        ul { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px 30px; padding: 0; }
-        ul li { font-size: 16px; font-weight: 400; color: #333; padding: 8px 0 8px 34px; position: relative; line-height: 1.6; }
-        ul li::before { content: '✓'; position: absolute; left: 0; top: 4px; font-size: 22px; font-weight: 700; color: #b03f35; }
-        ul li strong { font-weight: 700; color: #79553d; display: block; margin-bottom: 2px; }
-        table { width: 100%; border-collapse: collapse; font-size: 15px; border: none; }
-        th, td { padding: 14px 12px; text-align: left; border-bottom: 1px solid #eaeaea; }
-        th { background: transparent; color: #79553d; font-weight: 700; font-size: 16px; border-bottom: 2px solid #ddd; padding-bottom: 10px; }
-        tbody tr:last-child td { border-bottom: none; }
-        tbody tr:hover td { background: #f9f6f3; }
-        .price { font-weight: 700; color: #b03f35; text-align: center; }
-        .weight { text-align: center; color: #666; }
+        main section:last-of-type { 
+            border-bottom: none; 
+        }
+        
+        h2 { 
+            font-size: 28px; 
+            font-weight: 700; 
+            color: #79553d; 
+            margin-bottom: 24px; 
+            letter-spacing: -0.2px; 
+        }
+        
+        /* Блок О нас */
+        .about-wrap { 
+            display: flex; 
+            flex-wrap: wrap; 
+            align-items: flex-start; 
+            gap: 40px; 
+        }
+        .about-wrap .about-text { 
+            flex: 1 1 45%; 
+            min-width: 280px; 
+            text-align: justify; 
+            font-size: 18px; 
+            font-weight: 400; 
+            color: #333; 
+            line-height: 1.9; 
+        }
+        .about-wrap .about-text strong { 
+            color: #b03f35; 
+            font-weight: 700; 
+        }
+        .about-wrap .about-image { 
+            flex: 1 1 45%; 
+            min-width: 280px; 
+        }
+        .about-wrap .about-image img { 
+            width: 100%; 
+            height: auto; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06); 
+            display: block; 
+        }
 
-        /* Адаптивность главной */
+        /* Преимущества */
+        ul { 
+            list-style: none; 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            gap: 20px 30px; 
+            padding: 0; 
+        }
+        ul li { 
+            font-size: 16px; 
+            font-weight: 400; 
+            color: #333; 
+            padding: 8px 0 8px 34px; 
+            position: relative; 
+            line-height: 1.6; 
+        }
+        ul li::before { 
+            content: '✓'; 
+            position: absolute; 
+            left: 0; 
+            top: 4px; 
+            font-size: 22px; 
+            font-weight: 700; 
+            color: #b03f35; 
+        }
+        ul li strong { 
+            font-weight: 700; 
+            color: #79553d; 
+            display: block; 
+            margin-bottom: 2px; 
+        }
+
+        /* Таблица */
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            font-size: 15px; 
+            border: none; 
+        }
+        th, td { 
+            padding: 14px 12px; 
+            text-align: left; 
+            border-bottom: 1px solid #eaeaea; 
+        }
+        th { 
+            background: transparent; 
+            color: #79553d; 
+            font-weight: 700; 
+            font-size: 16px; 
+            border-bottom: 2px solid #ddd; 
+            padding-bottom: 10px; 
+        }
+        tbody tr:last-child td { 
+            border-bottom: none; 
+        }
+        tbody tr:hover td { 
+            background: #f9f6f3; 
+        }
+        .price { 
+            font-weight: 700; 
+            color: #b03f35; 
+            text-align: center; 
+        }
+        .weight { 
+            text-align: center; 
+            color: #666; 
+        }
+
+        /* --- ИСПРАВЛЕННАЯ АДАПТИВНОСТЬ --- */
+        
+        /* ≤800px: Планшеты */
         @media (max-width: 800px) {
+            body {
+                padding: 0 16px;
+            }
+            /* Перестраиваем блок "О нас" в колонку, чтобы картинка не наезжала на текст */
+            .about-wrap {
+                flex-direction: column;
+            }
+            .about-wrap .about-text,
+            .about-wrap .about-image { 
+                flex: 1 1 100%; 
+                min-width: 0; 
+            }
+            /* Картинка 500px, но не больше ширины контейнера */
             .about-wrap .about-image img {
                 width: 500px;
+                max-width: 100%;
+                margin: 0 auto;
             }
         }
+
+        /* ≤600px: Мобильные */
         @media (max-width: 600px) {
-            .about-wrap { flex-direction: column; }
-            .about-wrap .about-text, .about-wrap .about-image { flex: 1 1 100%; min-width: 0; }
-            .about-wrap .about-image img { width: 100%; }
-            table { font-size: 13px; }
-            th, td { padding: 10px 8px; }
+            .about-wrap .about-image img { 
+                width: 100%; 
+            }
+            table { 
+                font-size: 13px; 
+            }
+            th, td { 
+                padding: 10px 8px; 
+            }
         }
+
+        /* ≤400px: Маленькие мобильные */
         @media (max-width: 400px) {
-            table { font-size: 11px; }
-            th, td { padding: 8px 4px; }
+            table { 
+                font-size: 11px; 
+            }
+            th, td { 
+                padding: 8px 4px; 
+            }
         }
     </style>
 </head>
@@ -76,7 +201,7 @@
                     идеальный обед и получайте заказ за 60 минут.
                 </p>
                 <div class="about-image">
-                    <!-- Картинка из корня репозитория -->
+                    <!-- Относительный путь к картинке в корне репозитория -->
                     <img src="../lunch.jpg" alt="Набор бизнес-ланчей">
                 </div>
             </div>
@@ -95,7 +220,12 @@
             <h2>Популярные блюда</h2>
             <table>
                 <thead>
-                    <tr><th>Блюдо</th><th>Состав</th><th>Вес (г)</th><th>Цена (₽)</th></tr>
+                    <tr>
+                        <th>Блюдо</th>
+                        <th>Состав</th>
+                        <th>Вес (г)</th>
+                        <th>Цена (₽)</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr><td>Курица с гречкой</td><td>Филе, гречка, салат</td><td class="weight">350</td><td class="price">420</td></tr>
