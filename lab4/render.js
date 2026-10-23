@@ -1,14 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const mainContainer = document.getElementById('menu-container');
+    if (!mainContainer) return;
+
     const categories = [
-        { id: 'soups-container', key: 'soup', title: 'Выберите суп' },
-        { id: 'mains-container', key: 'main_course', title: 'Выберите главное блюдо' },
-        { id: 'drinks-container', key: 'drink', title: 'Выберите напиток' }
+        { key: 'soup', title: 'Выберите суп' },
+        { key: 'main_course', title: 'Выберите главное блюдо' },
+        { key: 'drink', title: 'Выберите напиток' }
     ];
 
     categories.forEach(category => {
-        const container = document.getElementById(category.id);
-        if (!container) return;
-
         const section = document.createElement('section');
         section.innerHTML = `<h2>${category.title}</h2>`;
 
@@ -37,6 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         section.appendChild(grid);
-        container.appendChild(section);
+        mainContainer.appendChild(section);
     });
 });
