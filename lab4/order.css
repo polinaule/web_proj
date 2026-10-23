@@ -1,0 +1,60 @@
+order.css
+/* --- СТИЛИ ДЛЯ ЛАБОРАТОРНОЙ 4 --- */
+
+/* Подсветка выбранной карточки */
+.dish-card.active {
+    border: 2px solid #b03f35;
+}
+
+/* Блок Ваш заказ */
+.order-summary-box {
+    border: 1px solid #222;
+    padding: 30px;
+    background-color: #fff;
+    margin-bottom: 20px;
+}
+
+.order-summary-box h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #222;
+}
+
+.summary-item {
+    margin-bottom: 20px;
+}
+
+.summary-item strong {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #222;
+}
+
+.summary-item p {
+    font-size: 16px;
+    color: #222;
+}
+
+.summary-total {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.summary-total strong {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #222;
+}
+
+/* Сетка для формы (две колонки) */
+.order-form {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+}
