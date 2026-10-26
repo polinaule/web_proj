@@ -1,3 +1,303 @@
+main section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0 40px;
+}
+
+main h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #79553d;
+    margin-bottom: 24px;
+    letter-spacing: -0.2px;
+}
+
+/* --- Фильтры --- */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.filter-btn {
+    background: transparent;
+    border: none;
+    color: gray;
+    font-family: inherit;
+    font-size: 15px;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.filter-btn:hover {
+    color: #b03f35;
+}
+
+.filter-btn.active {
+    color: #b03f35;
+    border-bottom: 2px solid #b03f35;
+}
+
+/* --- Сетка и карточки --- */
+.dishes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.dish-card {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 40px;
+    border-radius: 35px;
+    cursor: pointer;
+    filter: drop-shadow(17px 19px 24px rgba(0, 0, 0, 0.13));
+    background-color: white;
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.dish-card:hover,
+.dish-card.active {
+    border: 2px solid #b03f35;
+}
+
+.dish-card img {
+    width: 100%;
+    border-radius: 35px;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+}
+
+.dish-card .price {
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 15px;
+    color: #222;
+}
+
+.dish-card .name {
+    font-size: 20px;
+    margin-top: 5px;
+    color: #222;
+    flex-grow: 1;
+}
+
+.dish-card .weight {
+    color: gray;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.dish-card button {
+    background-color: #f1eee9;
+    margin-top: auto;
+    padding: 10px 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    color: #222;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dish-card:hover button,
+.dish-card.active button {
+    background-color: #b03f35;
+    color: white;
+}
+
+/* --- Форма --- */
+.order-form-section {
+    max-width: 1200px;
+    margin: 0 auto 40px;
+    padding: 20px 0 40px;
+}
+
+.order-form-section h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.order-form {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    background: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.form-col {
+    flex: 1 1 45%;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-col h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 10px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group label {
+    font-size: 16px;
+    color: #333;
+}
+
+.form-group select,
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group input[type="time"],
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 16px;
+    color: #222;
+    background: #fff;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.checkbox-group label {
+    font-size: 15px;
+    color: #333;
+    cursor: pointer;
+}
+
+.radio-group {
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.radio-group legend {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.radio-group div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.radio-group input[type="radio"] {
+    cursor: pointer;
+}
+
+.radio-group label {
+    font-size: 15px;
+    color: #333;
+    cursor: pointer;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.form-buttons button {
+    padding: 10px 30px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background: #f1eee9;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    color: #222;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.form-buttons button:hover {
+    background-color: #b03f35;
+    color: white;
+    border-color: #b03f35;
+}
+
+/* --- Корзина --- */
+.order-summary-box {
+    border: 1px solid #222;
+    padding: 30px;
+    background-color: #fff;
+    margin-bottom: 20px;
+}
+
+.order-summary-box h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #222;
+}
+
+.summary-item {
+    margin-bottom: 20px;
+}
+
+.summary-item strong {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #222;
+}
+
+.summary-item p {
+    font-size: 16px;
+    color: #222;
+}
+
+.summary-total {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.summary-total strong {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #222;
+}
+
 /* --- Стили для комбо из Лабораторной 6 --- */
 .combo-section {
     max-width: 1200px;
@@ -21,10 +321,10 @@
 
 .combo-card {
     display: flex;
-    flex-direction: row; /* В макете элементы в строку внутри комбо */
-    justify-content: flex-start;
+    flex-direction: row;
+    justify-content: center; /* Центрируем иконки */
     align-items: center;
-    gap: 15px;
+    gap: 20px; /* Расстояние между иконками */
     padding: 20px;
     border: 1px solid #eee;
     border-radius: 15px;
@@ -61,19 +361,19 @@
 }
 
 .dessert-info small {
-    font-size: 12px; /* Шрифт меньше на 2px */
+    font-size: 12px;
     color: #888;
     margin-top: 4px;
     display: block;
 }
 
-/* --- Стили для модального окна (уведомления) --- */
+/* --- Модальное окно --- */
 .modal-overlay {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(2px);
-    display: none; /* Скрыто по умолчанию */
+    display: none;
     align-items: center;
     justify-content: center;
     z-index: 9999;
@@ -115,18 +415,40 @@
     border-color: #b03f35;
 }
 
-/* Адаптивность комбо */
+/* --- Адаптивность --- */
 @media (max-width: 800px) {
+    .dishes-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .order-form {
+        flex-direction: column;
+        padding: 20px;
+    }
+    .form-col {
+        min-width: 100%;
+    }
     .combo-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 600px) {
-    .combo-grid {
+    main h2, .order-form-section h2, .combo-section h2 {
+        text-align: center;
+    }
+    .dishes-grid {
         grid-template-columns: 1fr;
     }
-    .combo-card {
-        justify-content: center;
+    .dish-card {
+        padding: 20px;
+    }
+    .form-buttons {
+        flex-direction: column;
+    }
+    .form-buttons button {
+        width: 100%;
+    }
+    .combo-grid {
+        grid-template-columns: 1fr;
     }
 }
