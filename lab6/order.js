@@ -25,12 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputDrink = document.getElementById('input-drink');
     const inputDessert = document.getElementById('input-dessert');
 
-    // Модальное окно
     const modalOverlay = document.getElementById('modal-overlay');
     const modalText = document.getElementById('modal-text');
     const modalClose = document.getElementById('modal-close');
 
-    // Клик по кнопкам "Добавить"
     document.body.addEventListener('click', (e) => {
         if (e.target.classList.contains('add-btn')) {
             const card = e.target.closest('.dish-card');
@@ -44,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Обновление UI корзины
     function updateUI() {
         const hasAny = Object.values(selected).some(val => val !== null);
 
@@ -87,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- ВАЛИДАЦИЯ ФОРМЫ ---
     document.getElementById('order-form').addEventListener('submit', function(e) {
         const hasSoup = !!selected.soup;
         const hasMain = !!selected.main_course;
@@ -97,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         let errorMsg = null;
 
-        // Проверка по правилам из задания
         if (!hasSoup && !hasMain && !hasSalad && !hasDrink && !hasDessert) {
             errorMsg = "Ничего не выбрано. Выберите блюда для заказа";
         } 
@@ -111,18 +106,15 @@ document.addEventListener('DOMContentLoaded', () => {
             errorMsg = "Выберите суп или главное блюдо";
         } 
         else if (!hasSoup && !hasMain && !hasSalad) {
-            // Остались только напиток и/или десерт
             errorMsg = "Выберите главное блюдо";
         }
 
-        // Если нашли ошибку — блокируем отправку и показываем модалку
         if (errorMsg) {
-            e.preventDefault(); // Останавливаем отправку формы
+            e.preventDefault();
             showModal(errorMsg);
         }
     });
 
-    // Функции модального окна
     function showModal(text) {
         modalText.textContent = text;
         modalOverlay.style.display = 'flex';
