@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalText = document.getElementById('modal-text');
     const modalClose = document.getElementById('modal-close');
 
+    // Клик по кнопкам "Добавить" в карточках
     document.body.addEventListener('click', (e) => {
         if (e.target.classList.contains('add-btn')) {
             const card = e.target.closest('.dish-card');
@@ -42,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Обновление блока "Ваш заказ"
     function updateUI() {
         const hasAny = Object.values(selected).some(val => val !== null);
 
@@ -73,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
             summaryTotalBlock.style.display = 'none';
         }
 
+        // Подсветка выбранных карточек
         document.querySelectorAll('.dish-card').forEach(card => {
             const keyword = card.getAttribute('data-dish');
             const isSelected = Object.values(selected).some(item => item && item.keyword === keyword);
@@ -84,6 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- ВАЛИДАЦИЯ ФОРМЫ (строго по таблице из задания) ---
     document.getElementById('order-form').addEventListener('submit', function(e) {
         const hasSoup = !!selected.soup;
         const hasMain = !!selected.main_course;
@@ -93,28 +97,35 @@ document.addEventListener('DOMContentLoaded', () => {
         
         let errorMsg = null;
 
+        // 1. Ничего не выбрано
         if (!hasSoup && !hasMain && !hasSalad && !hasDrink && !hasDessert) {
             errorMsg = "Ничего не выбрано. Выберите блюда для заказа";
         } 
-        else if ((hasSoup || hasMain || hasSalad) && !hasDrink) {
-            errorMsg = "Выберите напиток";
-        } 
+        // 2. Выбран суп, но не выбраны главное блюдо/салат/стартер
         else if (hasSoup && !hasMain && !hasSalad) {
             errorMsg = "Выберите главное блюдо/салат/стартер";
         } 
+        // 3. Выбран салат/стартер, но не выбраны суп/главное блюдо
         else if (!hasSoup && !hasMain && hasSalad) {
             errorMsg = "Выберите суп или главное блюдо";
         } 
+        // 4. Выбран только напиток и/или десерт
         else if (!hasSoup && !hasMain && !hasSalad) {
             errorMsg = "Выберите главное блюдо";
+        } 
+        // 5. Выбраны все необходимые блюда (суп, главное или салат), кроме напитка
+        else if ((hasSoup || hasMain || hasSalad) && !hasDrink) {
+            errorMsg = "Выберите напиток";
         }
 
+        // Блокируем отправку, если есть ошибка
         if (errorMsg) {
-            e.preventDefault();
+            e.preventDefault(); 
             showModal(errorMsg);
         }
     });
 
+    // Функции модального окна
     function showModal(text) {
         modalText.textContent = text;
         modalOverlay.style.display = 'flex';
