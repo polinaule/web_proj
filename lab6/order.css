@@ -1,0 +1,132 @@
+/* --- Стили для комбо из Лабораторной 6 --- */
+.combo-section {
+    max-width: 1200px;
+    margin: 0 auto 40px;
+    padding: 20px 0;
+}
+
+.combo-section h2 {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    color: #79553d;
+    margin-bottom: 30px;
+}
+
+.combo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.combo-card {
+    display: flex;
+    flex-direction: row; /* В макете элементы в строку внутри комбо */
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 15px;
+    background: #fff;
+}
+
+.combo-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.combo-icon {
+    font-size: 30px;
+    margin-bottom: 5px;
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+.combo-icon:hover {
+    transform: translateY(-5px) scale(1.2);
+}
+
+.combo-item p {
+    font-size: 14px;
+    color: #222;
+    margin: 0;
+}
+
+.dessert-info {
+    justify-content: center;
+    border: 2px dashed #f1eee9;
+}
+
+.dessert-info small {
+    font-size: 12px; /* Шрифт меньше на 2px */
+    color: #888;
+    margin-top: 4px;
+    display: block;
+}
+
+/* --- Стили для модального окна (уведомления) --- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(2px);
+    display: none; /* Скрыто по умолчанию */
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 40px 60px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    border: 1px solid #eee;
+    text-align: center;
+    max-width: 400px;
+}
+
+#modal-text {
+    font-size: 18px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 25px;
+}
+
+#modal-close {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px 30px;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    color: #222;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+#modal-close:hover {
+    background-color: #b03f35;
+    color: #fff;
+    border-color: #b03f35;
+}
+
+/* Адаптивность комбо */
+@media (max-width: 800px) {
+    .combo-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .combo-grid {
+        grid-template-columns: 1fr;
+    }
+    .combo-card {
+        justify-content: center;
+    }
+}
