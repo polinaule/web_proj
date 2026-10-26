@@ -12,7 +12,7 @@ const dishesData = [
     { keyword: 'salmon_rice', name: 'Лосось с рисом', price: 590, category: 'main_course', count: '380 г', image: 'salmonrice.png', kind: 'fish' },
     { keyword: 'pasta_vegetables', name: 'Паста с овощами', price: 380, category: 'main_course', count: '400 г', image: 'pastavegetables.png', kind: 'veg' },
     { keyword: 'beef_potatoes', name: 'Говядина с картофелем', price: 520, category: 'main_course', count: '420 г', image: 'beefpotatoes.png', kind: 'meat' },
-    { keyword: 'tuna_salad', name: 'Салат с тунцом', price: 350, category: 'main_course', count: '280 г', image: 'tunasalad.png', kind: 'fish' }, // Wait, in prev lab it was main. Let's make it main fish.
+    { keyword: 'tuna_salad', name: 'Салат с тунцом', price: 350, category: 'main_course', count: '280 г', image: 'tunasalad.png', kind: 'fish' },
     { keyword: 'veg_ragu', name: 'Овощное рагу', price: 210, category: 'main_course', count: '300 г', image: 'https://placehold.co/400x400/f0f0f0/333?text=Рагу', kind: 'veg' },
 
     // --- САЛАТЫ И СТАРТЕРЫ (6 шт: 1 рыба, 1 мясо, 4 вег) ---
