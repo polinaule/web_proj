@@ -36,6 +36,6 @@ const dishesData = [
     { keyword: 'eclair', name: 'Эклер', price: 120, category: 'dessert', count: '80 г', image: 'eclair.png', kind: 'small' },
     { keyword: 'potato_cake', name: 'Пирожное "Картошка"', price: 220, category: 'dessert', count: '100 г', image: 'potatocake.png', kind: 'small' },
     { keyword: 'tiramisu', name: 'Тирамису', price: 240, category: 'dessert', count: '150 г', image: 'tiramisu.png', kind: 'medium' },
-    { keyword: 'cheesecake', name: 'Чизкейк', price: 270, category: 'dessert', count: '160 г', image: 'cheesecake.png', kind: 'medium' },
+    { keyword: 'cheesecake', name: 'Чизкейк', price: 270, category: 'dessert', count: '160 г', image: 'cheesecacke.png', kind: 'medium' },
     { keyword: 'chocolate_cake', name: 'Шоколадный торт', price: 380, category: 'dessert', count: '250 г', image: 'chocolatecake.png', kind: 'large' }
 ];
