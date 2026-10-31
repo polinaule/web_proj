@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- ВАЛИДАЦИЯ ФОРМЫ (строго по таблице из задания) ---
+    // --- ВАЛИДАЦИЯ ФОРМЫ ---
     document.getElementById('order-form').addEventListener('submit', function(e) {
         const hasSoup = !!selected.soup;
         const hasMain = !!selected.main_course;
