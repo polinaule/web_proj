@@ -1,3 +1,14 @@
+/**
+задача: загрузка данных через API с помощью функции loadDishes().
+есть резервный массив myLocalData (страховка на случай падения сервера)
+функция loadDishes() делает запрос к API через fetch
+если API отвечает корректно, берем данные с сервера, но подменяем ссылки на картинки на локальные
+если API падает или отдает неверные данные, используем локальный массив
+*/
+
+// Резервный массив с блюдами
+// Нужен на случай, если сервер API недоступен или возвращает некорректные данные
+// Пути к локальным картинкам
 const myLocalData = [
   { category: "soup", count: "350 г", image: "gazpacho.png", keyword: "gaspacho", kind: "veg", name: "Гаспачо", price: 195 },
   { category: "soup", count: "330 г", image: "mushroomsoup.png", keyword: "mushroom_soup", kind: "veg", name: "Грибной суп-пюре", price: 185 },
@@ -30,20 +41,23 @@ const myLocalData = [
   { category: "dessert", count: "160 г", image: "cheesecacke.png", keyword: "cheesecake", kind: "medium", name: "Чизкейк", price: 270 },
   { category: "dessert", count: "250 г", image: "chocolatecake.png", keyword: "chocolate_cake", kind: "large", name: "Шоколадный торт", price: 380 }
 ];
-
+// Глобальная переменная для хранения текущих данных (из API или локальных)
 let dishesData = [];
-// токен
+// Настройки API
 const API_TOKEN = '670307b2-e7c6-351b-8b00-f70419a78b45';
 const API_BASE_URL = 'https://web-basics-api-gashagaggy.msk1.amvera.tech';
 const API_URL = `https://web-basics-api-gagashaggy.msk1.amvera.tech/labs/api/dishes/my?api_key=${API_TOKEN}`;
-
+// Главная функция загрузки данных
+// Она асинхронная и использует fetch для запроса к серверу
 async function loadDishes() {
     try {
         console.log("Делаем запрос к API...");
+        // Отправляем GET-запрос на сервер
         const response = await fetch(API_URL);
+        // Парсим ответ в формате JSON
         const data = await response.json();
         
-        // Проверяем, прислал ли сервер блюда
+        // Проверяем, что сервер прислал правильные данные 
         const isCorrectData = data && data.some(d => d.keyword === 'gaspacho');
 
         if (isCorrectData) {
@@ -59,22 +73,26 @@ async function loadDishes() {
                 };
             });
         } else {
+            // Если API вернул некорректные данные, используем наш резервный массив
             console.warn("API вернул неправильные данные. Берем локальный массив.");
             dishesData = myLocalData;
         }
     } catch (error) {
+        // Блок catch срабатывает при ошибке сети (например, если сервер упал)
         console.error("Ошибка API:", error);
+        // В этом случае сайт все равно продолжит работать благодаря локальным данным
         dishesData = myLocalData;
     }
     
     renderMenu();
 }
-
+// Функция отрисовки интерфейса
+// Создает HTML-элементы на основе массива dishesData
 function renderMenu() {
     const mainContainer = document.getElementById('menu-container');
     if (!mainContainer) return;
     mainContainer.innerHTML = '';
-
+    // Конфигурация категорий (заголовки и кнопки фильтров)
     const categories = [
         { key: 'soup', title: 'Выберите суп', filters: [{k: 'fish', n: 'рыбный'}, {k: 'meat', n: 'мясной'}, {k: 'veg', n: 'вегетарианский'}] },
         { key: 'main_course', title: 'Выберите главное блюдо', filters: [{k: 'fish', n: 'рыбное'}, {k: 'meat', n: 'мясное'}, {k: 'veg', n: 'вегетарианское'}] },
@@ -82,13 +100,13 @@ function renderMenu() {
         { key: 'drink', title: 'Выберите напиток', filters: [{k: 'cold', n: 'холодный'}, {k: 'hot', n: 'горячий'}] },
         { key: 'dessert', title: 'Выберите десерт', filters: [{k: 'small', n: 'маленькая порция'}, {k: 'medium', n: 'средняя порция'}, {k: 'large', n: 'большая порция'}] }
     ];
-
+    // Проходимся циклом по каждой категории
     categories.forEach(category => {
         const section = document.createElement('section');
         const h2 = document.createElement('h2');
         h2.textContent = category.title;
         section.appendChild(h2);
-
+        // Создаем блок с кнопками-фильтрами
         const filtersDiv = document.createElement('div');
         filtersDiv.className = 'filters';
         category.filters.forEach(f => {
@@ -100,22 +118,22 @@ function renderMenu() {
             filtersDiv.appendChild(btn);
         });
         section.appendChild(filtersDiv);
-
+        // Создаем сетку для карточек
         const grid = document.createElement('div');
         grid.className = 'dishes-grid';
-
+        // Фильтруем блюда по текущей категории и сортируем по алфавиту (по названию)
         const filteredDishes = dishesData
             .filter(dish => dish.category === category.key)
             .sort((a, b) => a.name.localeCompare(b.name));
-
+        // Отрисовываем каждую карточку
         filteredDishes.forEach(dish => {
             const card = document.createElement('div');
             card.className = 'dish-card';
             card.setAttribute('data-dish', dish.keyword);
             card.setAttribute('data-kind', dish.kind);
-            
+            // Заглушка на случай, если картинка вообще не загрузится
             const placeholder = `https://placehold.co/400x400/f9f6f3/79553d?text=${encodeURIComponent(dish.name)}`;
-            
+            // Вставляем HTML внутрь карточки
             card.innerHTML = `
                 <img src="${dish.image}" alt="${dish.name}" onerror="this.onerror=null; this.src='${placeholder}';">
                 <p class="price">${dish.price}₽</p>
@@ -125,17 +143,20 @@ function renderMenu() {
             `;
             grid.appendChild(card);
         });
-
+        // ЛОГИКА ФИЛЬТРАЦИИ
+        // Вешаем обработчик клика на контейнер с кнопками
         filtersDiv.addEventListener('click', (e) => {
             if (!e.target.classList.contains('filter-btn')) return;
             const clickedBtn = e.target;
             const isAlreadyActive = clickedBtn.classList.contains('active');
-            
+            // Снимаем выделение со всех кнопок
             filtersDiv.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             
             if (isAlreadyActive) {
+                // Если кликнули на уже активную кнопку — показываем все блюда
                 grid.querySelectorAll('.dish-card').forEach(c => c.style.display = 'flex');
             } else {
+                // Иначе выделяем кнопку и скрываем все карточки, кроме нужного типа
                 clickedBtn.classList.add('active');
                 const filterKind = clickedBtn.dataset.kind;
                 grid.querySelectorAll('.dish-card').forEach(card => {
@@ -143,10 +164,10 @@ function renderMenu() {
                 });
             }
         });
-
+        // Добавляем готовую секцию в main
         section.appendChild(grid);
         mainContainer.appendChild(section);
     });
 }
-
+// Запускаем загрузку, как только загрузится DOM-дерево
 document.addEventListener('DOMContentLoaded', loadDishes);
