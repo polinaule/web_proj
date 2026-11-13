@@ -32,10 +32,9 @@ const myLocalData = [
 ];
 
 let dishesData = [];
-
+// токен
 const API_TOKEN = '670307b2-e7c6-351b-8b00-f70419a78b45';
 const API_BASE_URL = 'https://web-basics-api-gashagaggy.msk1.amvera.tech';
-// Внимание: исправлена опечатка в домене (gashagaggy -> gagashaggy)
 const API_URL = `https://web-basics-api-gagashaggy.msk1.amvera.tech/labs/api/dishes/my?api_key=${API_TOKEN}`;
 
 async function loadDishes() {
@@ -44,18 +43,18 @@ async function loadDishes() {
         const response = await fetch(API_URL);
         const data = await response.json();
         
-        // Проверяем, прислал ли сервер наши блюда
+        // Проверяем, прислал ли сервер блюда
         const isCorrectData = data && data.some(d => d.keyword === 'gaspacho');
 
         if (isCorrectData) {
             console.log("Данные получены с API! Подставляем локальные картинки по ключу.");
             
-            // Сопоставляем данные с сервера с нашими локальными картинками
+            // Сопоставляем данные с сервера с локальными картинками
             dishesData = data.map(apiDish => {
                 const localDish = myLocalData.find(d => d.keyword === apiDish.keyword);
                 return {
                     ...apiDish,
-                    // Если нашли локальное совпадение — берем правильный файл. Если нет — ставим заглушку.
+                    // Если локальное совпадение — берем правильный файл. Если нет — ставим заглушку.
                     image: localDish ? localDish.image : `https://placehold.co/400x400/f9f6f3/79553d?text=${encodeURIComponent(apiDish.name)}`
                 };
             });
