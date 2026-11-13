@@ -34,8 +34,9 @@ const myLocalData = [
 let dishesData = [];
 
 const API_TOKEN = '670307b2-e7c6-351b-8b00-f70419a78b45';
-const API_BASE_URL = 'https://web-basics-api-gagashaggy.msk1.amvera.tech';
-const API_URL = `${API_BASE_URL}/labs/api/dishes/my?api_key=${API_TOKEN}`;
+const API_BASE_URL = 'https://web-basics-api-gashagaggy.msk1.amvera.tech';
+// Внимание: исправлена опечатка в домене (gashagaggy -> gagashaggy)
+const API_URL = `https://web-basics-api-gagashaggy.msk1.amvera.tech/labs/api/dishes/my?api_key=${API_TOKEN}`;
 
 async function loadDishes() {
     try {
@@ -43,21 +44,23 @@ async function loadDishes() {
         const response = await fetch(API_URL);
         const data = await response.json();
         
-        // Проверяем, прислал ли сервер наши блюда (ищем Гаспачо)
+        // Проверяем, прислал ли сервер наши блюда
         const isCorrectData = data && data.some(d => d.keyword === 'gaspacho');
 
         if (isCorrectData) {
-            console.log("Данные получены с API! Принудительно меняем картинки на локальные.");
+            console.log("Данные получены с API! Подставляем локальные картинки по ключу.");
             
-            // Проходимся по каждому блюду из API и подменяем ссылки на Unsplash на локальные файлы
-            dishesData = data.map(dish => {
+            // Сопоставляем данные с сервера с нашими локальными картинками
+            dishesData = data.map(apiDish => {
+                const localDish = myLocalData.find(d => d.keyword === apiDish.keyword);
                 return {
-                    ...dish,
-                    image: `${dish.keyword}.png` // Всегда берем локальную картинку по ключевому слову
+                    ...apiDish,
+                    // Если нашли локальное совпадение — берем правильный файл. Если нет — ставим заглушку.
+                    image: localDish ? localDish.image : `https://placehold.co/400x400/f9f6f3/79553d?text=${encodeURIComponent(apiDish.name)}`
                 };
             });
         } else {
-            console.warn("API вернул неправильные данные (пончики). Берем локальный массив.");
+            console.warn("API вернул неправильные данные. Берем локальный массив.");
             dishesData = myLocalData;
         }
     } catch (error) {
