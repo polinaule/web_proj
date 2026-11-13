@@ -1,9 +1,13 @@
+// Данные будут загружены с сервера
 let dishesData = [];
 
+// токен
 const API_TOKEN = '670307b2-e7c6-351b-8b00-f70419a78b45';
 const API_BASE_URL = 'https://web-basics-api-gagashaggy.msk1.amvera.tech';
+// Используем /default, чтобы вернуть стандартные блюда без пончиков
 const API_URL = `${API_BASE_URL}/labs/api/dishes/default?api_key=${API_TOKEN}`;
 
+// 1. Функция загрузки
 async function loadDishes() {
     try {
         const response = await fetch(API_URL);
@@ -14,10 +18,11 @@ async function loadDishes() {
         renderMenu();
     } catch (error) {
         console.error("Ошибка загрузки:", error);
-        alert("Не удалось загрузить меню.");
+        document.getElementById('menu-container').innerHTML = '<p style="text-align:center; padding: 40px;">Не удалось загрузить меню.</p>';
     }
 }
 
+// 2. Отрисовка
 function renderMenu() {
     const mainContainer = document.getElementById('menu-container');
     if (!mainContainer) return;
@@ -62,16 +67,13 @@ function renderMenu() {
             card.setAttribute('data-dish', dish.keyword);
             card.setAttribute('data-kind', dish.kind);
             
-            // --- ФИКС КАРТИНОК ---
+            // Умная загрузка картинок (если сервер не отдает, ищем локальную)
             let imgUrl = dish.image || '';
-            // Если ссылка относительная (без http), добавляем домен API
             if (imgUrl && !imgUrl.startsWith('http')) {
                 imgUrl = API_BASE_URL + (imgUrl.startsWith('/') ? '' : '/') + imgUrl;
             }
-            // Меняем http на https
             imgUrl = imgUrl.replace('http://', 'https://');
             
-            // Локальная картинка на случай, если серверная не загрузится
             const localFallback = `${dish.keyword}.png`; 
             const placeholder = `https://placehold.co/400x400/f9f6f3/79553d?text=${encodeURIComponent(dish.name)}`;
             
