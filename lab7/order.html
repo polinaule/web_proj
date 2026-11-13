@@ -27,37 +27,31 @@
     <section class="combo-section">
         <h2>Доступные для заказа комбо</h2>
         <div class="combo-grid">
-            <!-- Комбо 1 -->
             <div class="combo-card">
                 <div class="combo-item"><span class="combo-icon">🥣</span><p>Суп</p></div>
                 <div class="combo-item"><span class="combo-icon">🍖</span><p>Главное</p></div>
                 <div class="combo-item"><span class="combo-icon">🥗</span><p>Салат</p></div>
                 <div class="combo-item"><span class="combo-icon">🥤</span><p>Напиток</p></div>
             </div>
-            <!-- Комбо 2 -->
             <div class="combo-card">
                 <div class="combo-item"><span class="combo-icon">🥣</span><p>Суп</p></div>
                 <div class="combo-item"><span class="combo-icon">🍖</span><p>Главное</p></div>
                 <div class="combo-item"><span class="combo-icon">🥤</span><p>Напиток</p></div>
             </div>
-            <!-- Комбо 3 -->
             <div class="combo-card">
                 <div class="combo-item"><span class="combo-icon">🥣</span><p>Суп</p></div>
                 <div class="combo-item"><span class="combo-icon">🥗</span><p>Салат</p></div>
                 <div class="combo-item"><span class="combo-icon">🥤</span><p>Напиток</p></div>
             </div>
-            <!-- Комбо 4 -->
             <div class="combo-card">
                 <div class="combo-item"><span class="combo-icon">🍖</span><p>Главное</p></div>
                 <div class="combo-item"><span class="combo-icon">🥗</span><p>Салат</p></div>
                 <div class="combo-item"><span class="combo-icon">🥤</span><p>Напиток</p></div>
             </div>
-            <!-- Комбо 5 -->
             <div class="combo-card">
                 <div class="combo-item"><span class="combo-icon">🍖</span><p>Главное</p></div>
                 <div class="combo-item"><span class="combo-icon">🥤</span><p>Напиток</p></div>
             </div>
-            <!-- Информация о десерте -->
             <div class="combo-card dessert-info">
                 <div class="combo-item">
                     <span class="combo-icon">🍰</span>
@@ -68,6 +62,7 @@
         </div>
     </section>
 
+    <!-- Сюда JS будет вставлять меню с сервера -->
     <main id="menu-container"></main>
 
     <section class="order-form-section" id="order-section">
@@ -107,33 +102,27 @@
 
             <div class="form-col">
                 <h3>Ваши данные</h3>
-
                 <div class="form-group">
                     <label for="name">Имя</label>
                     <input type="text" name="name" id="name" required>
                 </div>
-
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" name="email" id="email" required>
                 </div>
-
                 <div class="checkbox-group">
                     <input type="checkbox" name="subscribe" id="subscribe" checked>
                     <label for="subscribe">Получать информацию о скидках и акциях</label>
                 </div>
-
                 <div class="form-group">
                     <label for="phone">Номер телефона</label>
                     <input type="tel" name="phone" id="phone" required>
                 </div>
-
                 <div class="form-group">
                     <label for="address">Адрес доставки</label>
                     <input type="text" name="address" id="address" required>
                     <small style="color: gray; font-size: 12px;">Доставка осуществляется только по Москве</small>
                 </div>
-
                 <fieldset class="radio-group">
                     <legend>Время доставки:</legend>
                     <div>
@@ -145,13 +134,10 @@
                         <label for="exact_time">К указанному времени</label>
                     </div>
                 </fieldset>
-
                 <div class="form-group">
                     <label for="delivery_time">Укажите время доставки</label>
                     <input type="time" name="delivery_time" id="delivery_time" min="07:00" max="23:00" step="300" required>
-                    <small style="color: gray; font-size: 12px;">Доступное время доставки с 7:00 до 23:00</small>
                 </div>
-
                 <div class="form-buttons">
                     <button type="reset">Сбросить</button>
                     <button type="submit">Отправить</button>
@@ -172,7 +158,6 @@
         </div>
     </footer>
 
-    <!-- Модальное окно для уведомлений -->
     <div class="modal-overlay" id="modal-overlay">
         <div class="modal-content">
             <p id="modal-text">Текст уведомления</p>
