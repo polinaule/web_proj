@@ -1,12 +1,12 @@
 // Глобальная переменная, куда загрузятся данные с API
 let dishesData = [];
 
-// токен
+// токен из задания
 const API_TOKEN = '670307b2-e7c6-351b-8b00-f70419a78b45';
 const API_BASE_URL = 'https://web-basics-api-gagashaggy.msk1.amvera.tech';
 const API_URL = `${API_BASE_URL}/labs/api/dishes/default?api_key=${API_TOKEN}`;
 
-// Функция загрузки данных
+// 1. Функция загрузки данных
 async function loadDishes() {
     try {
         const response = await fetch(API_URL);
@@ -26,7 +26,7 @@ async function loadDishes() {
     }
 }
 
-// Функция отрисовки
+// 2. Функция отрисовки
 function renderMenu() {
     const mainContainer = document.getElementById('menu-container');
     if (!mainContainer) return;
@@ -74,21 +74,21 @@ function renderMenu() {
             card.setAttribute('data-dish', dish.keyword);
             card.setAttribute('data-kind', dish.kind);
             
-            let imageUrl = dish.image;
-            if (imageUrl) {
-                // Если API вернул относительный путь (начинается не с http)
-                if (!imageUrl.startsWith('http')) {
-                    // Добавляем базовый URL сервера API
-                    imageUrl = API_BASE_URL + (imageUrl.startsWith('/') ? '' : '/') + imageUrl;
-                }
-                // Если путь начинается с http://, принудительно меняем на https://
-                if (imageUrl.startsWith('http://')) {
-                    imageUrl = imageUrl.replace('http://', 'https://');
-                }
+            // --- ЛОГИКА БЕЗОПАСНОЙ ЗАГРУЗКИ КАРТИНКИ ---
+            let imageUrl = dish.image || '';
+            if (!imageUrl.startsWith('http')) {
+                imageUrl = API_BASE_URL + (imageUrl.startsWith('/') ? '' : '/') + imageUrl;
             }
+            imageUrl = imageUrl.replace('http://', 'https://');
+
+            // Если с сервера картинка не придет, она попробует загрузить локальную (dish.keyword.png)
+            // Если и локальной нет, покажет заглушку
+            const fallbackLocal = `${dish.keyword}.png`;
+            const fallbackPlaceholder = `https://placehold.co/400x400/f0f0f0/333?text=${encodeURIComponent(dish.name)}`;
 
             card.innerHTML = `
-                <img src="${imageUrl}" alt="${dish.name}">
+                <img src="${imageUrl}" alt="${dish.name}" 
+                     onerror="this.onerror=null; this.src='${fallbackLocal}'; this.onerror=function(){this.src='${fallbackPlaceholder}'};">
                 <p class="price">${dish.price}₽</p>
                 <p class="name">${dish.name}</p>
                 <p class="weight">${dish.count}</p>
