@@ -60,13 +60,14 @@ main h2 { font-size: 28px; font-weight: 700; color: #79553d; margin-bottom: 24px
 #modal-close { background-color: #fff; border: 1px solid #ccc; padding: 10px 30px; border-radius: 10px; font-family: inherit; font-size: 16px; font-weight: 600; color: #222; cursor: pointer; transition: background-color 0.3s, color 0.3s, border-color 0.3s; }
 #modal-close:hover { background-color: #b03f35; color: #fff; border-color: #b03f35; }
 
-/* Адаптивность */
+/* АДАПТИВНОСТЬ */
 @media (max-width: 800px) {
     .dishes-grid { grid-template-columns: repeat(2, 1fr); }
     .order-form { flex-direction: column; padding: 20px; }
     .form-col { min-width: 100%; }
     .combo-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
 @media (max-width: 600px) {
     main h2, .order-form-section h2, .combo-section h2 { text-align: center; }
     .dishes-grid { grid-template-columns: 1fr; }
