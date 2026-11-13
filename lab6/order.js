@@ -1,3 +1,4 @@
+// Перехватываем отправку формы для проверки
 document.addEventListener('DOMContentLoaded', () => {
     const selected = {
         soup: null,
