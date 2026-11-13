@@ -1,11 +1,12 @@
 // Глобальная переменная, куда загрузятся данные с API
 let dishesData = [];
 
-// Ваш токен из задания
+// токен
 const API_TOKEN = '670307b2-e7c6-351b-8b00-f70419a78b45';
-const API_URL = `https://web-basics-api-gagashaggy.msk1.amvera.tech/labs/api/dishes/default?api_key=${API_TOKEN}`;
+const API_BASE_URL = 'https://web-basics-api-gagashaggy.msk1.amvera.tech';
+const API_URL = `${API_BASE_URL}/labs/api/dishes/default?api_key=${API_TOKEN}`;
 
-// 1. Функция загрузки данных (как требует задание)
+// Функция загрузки данных
 async function loadDishes() {
     try {
         const response = await fetch(API_URL);
@@ -14,13 +15,9 @@ async function loadDishes() {
             throw new Error(`Ошибка сервера: ${response.status}`);
         }
         
-        // Данные приходят в формате JSON
         const data = await response.json();
-        
-        // Сохраняем в глобальную переменную для order.js
         dishesData = data; 
         
-        // Запускаем отрисовку меню на странице
         renderMenu();
         
     } catch (error) {
@@ -29,12 +26,11 @@ async function loadDishes() {
     }
 }
 
-// 2. Функция отрисовки (бывшая логика из лабы 5/6)
+// Функция отрисовки
 function renderMenu() {
     const mainContainer = document.getElementById('menu-container');
     if (!mainContainer) return;
     
-    // Очищаем контейнер перед рендером (на случай повторного вызова)
     mainContainer.innerHTML = '';
 
     const categories = [
@@ -52,7 +48,6 @@ function renderMenu() {
         h2.textContent = category.title;
         section.appendChild(h2);
 
-        // Блок с кнопками фильтров
         const filtersDiv = document.createElement('div');
         filtersDiv.className = 'filters';
         
@@ -66,25 +61,34 @@ function renderMenu() {
         });
         section.appendChild(filtersDiv);
 
-        // Сетка с карточками
         const grid = document.createElement('div');
         grid.className = 'dishes-grid';
 
-        // Фильтруем и сортируем данные, пришедшие с API
         const filteredDishes = dishesData
             .filter(dish => dish.category === category.key)
             .sort((a, b) => a.name.localeCompare(b.name));
 
-        // Отрисовываем карточки
         filteredDishes.forEach(dish => {
             const card = document.createElement('div');
             card.className = 'dish-card';
             card.setAttribute('data-dish', dish.keyword);
             card.setAttribute('data-kind', dish.kind);
             
-            // Обратите внимание: image теперь берется напрямую с сервера API
+            let imageUrl = dish.image;
+            if (imageUrl) {
+                // Если API вернул относительный путь (начинается не с http)
+                if (!imageUrl.startsWith('http')) {
+                    // Добавляем базовый URL сервера API
+                    imageUrl = API_BASE_URL + (imageUrl.startsWith('/') ? '' : '/') + imageUrl;
+                }
+                // Если путь начинается с http://, принудительно меняем на https://
+                if (imageUrl.startsWith('http://')) {
+                    imageUrl = imageUrl.replace('http://', 'https://');
+                }
+            }
+
             card.innerHTML = `
-                <img src="${dish.image}" alt="${dish.name}">
+                <img src="${imageUrl}" alt="${dish.name}">
                 <p class="price">${dish.price}₽</p>
                 <p class="name">${dish.name}</p>
                 <p class="weight">${dish.count}</p>
@@ -93,7 +97,6 @@ function renderMenu() {
             grid.appendChild(card);
         });
 
-        // Логика фильтрации (без изменений)
         filtersDiv.addEventListener('click', (e) => {
             if (!e.target.classList.contains('filter-btn')) return;
             
@@ -123,7 +126,6 @@ function renderMenu() {
     });
 }
 
-// 3. Запускаем загрузку при открытии страницы
 document.addEventListener('DOMContentLoaded', () => {
     loadDishes();
 });
