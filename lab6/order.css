@@ -344,7 +344,7 @@ main h2 {
     transition: transform 0.3s ease;
     display: inline-block;
 }
-
+/* Эффект наведения на иконки в комбо (требование ЛР6) */
 .combo-icon:hover {
     transform: translateY(-5px) scale(1.2);
 }
@@ -367,7 +367,7 @@ main h2 {
     display: block;
 }
 
-/* --- Модальное окно --- */
+/* Модальное окно (уведомление) */
 .modal-overlay {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -408,7 +408,7 @@ main h2 {
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
-
+/* Кнопка "Окей" меняет цвет при наведении (требование ЛР6) */
 #modal-close:hover {
     background-color: #b03f35;
     color: #fff;
