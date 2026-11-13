@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Главная | ЛанчBox</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        main section { padding: 24px 0 40px; max-width: 1200px; margin: 0 auto; border-bottom: 1px solid #f0f0f0; }
+        main section:last-of-type { border-bottom: none; }
+        h2 { font-size: 28px; font-weight: 700; color: #79553d; margin-bottom: 24px; letter-spacing: -0.2px; }
+        
+        .about-wrap { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 40px; }
+        .about-wrap .about-text { flex: 1 1 45%; min-width: 280px; text-align: justify; font-size: 18px; font-weight: 400; color: #333; line-height: 1.9; }
+        .about-wrap .about-text strong { color: #b03f35; font-weight: 700; }
+        .about-wrap .about-image { flex: 1 1 45%; min-width: 280px; }
+        .about-wrap .about-image img { width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06); display: block; }
+
+        ul { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px 30px; padding: 0; }
+        ul li { font-size: 16px; font-weight: 400; color: #333; padding: 8px 0 8px 34px; position: relative; line-height: 1.6; }
+        ul li::before { content: '✓'; position: absolute; left: 0; top: 4px; font-size: 22px; font-weight: 700; color: #b03f35; }
+        ul li strong { font-weight: 700; color: #79553d; display: block; margin-bottom: 2px; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 15px; border: none; }
+        th, td { padding: 14px 12px; text-align: left; border-bottom: 1px solid #eaeaea; }
+        th { background: transparent; color: #79553d; font-weight: 700; font-size: 16px; border-bottom: 2px solid #ddd; padding-bottom: 10px; }
+        tbody tr:last-child td { border-bottom: none; }
+        tbody tr:hover td { background: #f9f6f3; }
+        .price { font-weight: 700; color: #b03f35; text-align: center; }
+        .weight { text-align: center; color: #666; }
+
+        @media (max-width: 800px) {
+            body { padding: 0 16px; }
+            .about-wrap { flex-direction: column; }
+            .about-wrap .about-text, .about-wrap .about-image { flex: 1 1 100%; min-width: 0; }
+            .about-wrap .about-image img { width: 500px; max-width: 100%; margin: 0 auto; }
+        }
+        @media (max-width: 600px) {
+            .about-wrap .about-image img { width: 100%; }
+            table { font-size: 13px; }
+            th, td { padding: 10px 8px; }
+        }
+        @media (max-width: 400px) {
+            table { font-size: 11px; }
+            th, td { padding: 8px 4px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🍱 <span>Ланч</span>Box</h1>
+        <nav>
+            <a href="index.html" class="active">Главная</a>
+            <a href="order.html">Собрать ланч</a>
+            <a href="#">Заказы</a>
+            <a href="#footer">Контакты</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>О компании</h2>
+            <div class="about-wrap">
+                <p class="about-text">
+                    <strong>«ЛанчBox»</strong> — доставка свежих бизнес-ланчей в Москве.
+                    Готовим из фермерских продуктов, без консервантов. Собирайте свой
+                    идеальный обед и получайте заказ за 60 минут.
+                </p>
+                <div class="about-image">
+                    <img src="../lunch.jpg" alt="Набор бизнес-ланчей">
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Почему выбирают нас</h2>
+            <ul>
+                <li><strong>Свежие продукты</strong>Ежедневные поставки от фермеров.</li>
+                <li><strong>Бесплатная доставка</strong>От 1500 ₽ — доставим за 60 минут.</li>
+                <li><strong>Гибкое меню</strong>Диетические, сытные, вегетарианские.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Популярные блюда</h2>
+            <table>
+                <thead>
+                    <tr><th>Блюдо</th><th>Состав</th><th>Вес (г)</th><th>Цена (₽)</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Курица с гречкой</td><td>Филе, гречка, салат</td><td class="weight">350</td><td class="price">420</td></tr>
+                    <tr><td>Лосось с рисом</td><td>Сёмга, бурый рис, спаржа</td><td class="weight">380</td><td class="price">590</td></tr>
+                    <tr><td>Паста с овощами</td><td>Паста, цукини, томатный соус</td><td class="weight">400</td><td class="price">380</td></tr>
+                    <tr><td>Говядина с картофелем</td><td>Говядина, картофель, грибной соус</td><td class="weight">420</td><td class="price">520</td></tr>
+                    <tr><td>Салат с тунцом</td><td>Тунец, микс-салат, яйцо</td><td class="weight">280</td><td class="price">350</td></tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer id="footer">
+        <div>
+            <div class="brand">🍱 <span>Ланч</span>Box</div>
+            <div class="copy">© 2026 Доставка бизнес-ланчей</div>
+        </div>
+        <div class="contacts">
+            <p><a href="tel:+74951234567">+7 (495) 123-45-67</a></p>
+            <p><a href="mailto:order@lunchbox.ru">order@lunchbox.ru</a></p>
+            <p class="address">г. Москва, Тверская, 12</p>
+        </div>
+    </footer>
+</body>
+</html>
