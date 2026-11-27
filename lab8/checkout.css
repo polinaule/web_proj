@@ -1,0 +1,45 @@
+.checkout-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0 60px;
+}
+
+.checkout-main h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #79553d;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.checkout-form-section {
+    background: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Стили для карточек в "Состав заказа" (копируем из order.css, но меняем кнопку) */
+#order-contents .dish-card button {
+    background-color: #f1eee9;
+    color: #b03f35;
+    font-weight: 700;
+    border: 1px solid #b03f35;
+}
+#order-contents .dish-card button:hover {
+    background-color: #b03f35;
+    color: #fff;
+}
+
+/* Отступы для формы */
+.order-form {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 800px) {
+    .order-form {
+        flex-direction: column;
+    }
+}

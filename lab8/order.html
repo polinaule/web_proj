@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Собрать ланч | ЛанчBox</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="order.css">
+</head>
+<body>
+
+    <header>
+        <h1>🍱 <span>Ланч</span>Box</h1>
+        <nav>
+            <a href="index.html">Главная</a>
+            <a href="order.html" class="active">Собрать ланч</a>
+            <a href="checkout.html">Оформить заказ</a>
+            <a href="#footer">Контакты</a>
+        </nav>
+    </header>
+
+    <section class="combo-section">
+        <h2>Доступные для заказа комбо</h2>
+        <div class="combo-grid">
+            <div class="combo-card">
+                <div class="combo-item"><span class="combo-icon">🥣</span><p>Суп</p></div>
+                <div class="combo-item"><span class="combo-icon">🍖</span><p>Главное</p></div>
+                <div class="combo-item"><span class="combo-icon">🥗</span><p>Салат</p></div>
+                <div class="combo-item"><span class="combo-icon">🥤</span><p>Напиток</p></div>
+            </div>
+            <div class="combo-card">
+                <div class="combo-item"><span class="combo-icon">🥣</span><p>Суп</p></div>
+                <div class="combo-item"><span class="combo-icon">🍖</span><p>Главное</p></div>
+                <div class="combo-item"><span class="combo-icon">🥤</span><p>Напиток</p></div>
+            </div>
+            <div class="combo-card">
+                <div class="combo-item"><span class="combo-icon">🥣</span><p>Суп</p></div>
+                <div class="combo-item"><span class="combo-icon">🥗</span><p>Салат</p></div>
+                <div class="combo-item"><span class="combo-icon">🥤</span><p>Напиток</p></div>
+            </div>
+            <div class="combo-card">
+                <div class="combo-item"><span class="combo-icon">🍖</span><p>Главное</p></div>
+                <div class="combo-item"><span class="combo-icon">🥗</span><p>Салат</p></div>
+                <div class="combo-item"><span class="combo-icon">🥤</span><p>Напиток</p></div>
+            </div>
+            <div class="combo-card">
+                <div class="combo-item"><span class="combo-icon">🍖</span><p>Главное</p></div>
+                <div class="combo-item"><span class="combo-icon">🥤</span><p>Напиток</p></div>
+            </div>
+            <div class="combo-card dessert-info">
+                <div class="combo-item">
+                    <span class="combo-icon">🍰</span>
+                    <p>Десерт</p>
+                    <small>(Можно добавить в любой заказ)</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Меню с блюдами -->
+    <main id="menu-container"></main>
+
+    <!-- Sticky-панель оформления -->
+    <div class="sticky-panel" id="sticky-panel" style="display: none;">
+        <div class="sticky-info">
+            <span>Итого: </span>
+            <span id="sticky-total">0₽</span>
+        </div>
+        <a href="checkout.html" id="checkout-link" class="checkout-link disabled">Перейти к оформлению</a>
+    </div>
+
+    <footer id="footer">
+        <div>
+            <div class="brand">🍱 <span>Ланч</span>Box</div>
+            <div class="copy">© 2026 Доставка бизнес-ланчей</div>
+        </div>
+        <div class="contacts">
+            <p><a href="tel:+74951234567">+7 (495) 123-45-67</a></p>
+            <p><a href="mailto:order@lunchbox.ru">order@lunchbox.ru</a></p>
+            <p class="address">г. Москва, Тверская, 12</p>
+        </div>
+    </footer>
+
+    <!-- Подключаем скрипты -->
+    <script src="render.js"></script>
+    <script src="order.js"></script>
+</body>
+</html>
