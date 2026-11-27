@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex">
     <title>Оформить заказ | ЛанчBox</title>
+
+    <!-- Подключение шрифтов и стилей (общие + специфичные для этой страницы) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -24,12 +26,16 @@
         </nav>
     </header>
 
+    <!-- РАЗДЕЛ 1: СОСТАВ ЗАКАЗА -->
     <main class="checkout-main">
         <h2>Состав заказа</h2>
+        <!-- Контейнер пустой. Скрипт checkout.js прочитает данные из localStorage, 
+             найдет эти блюда на сервере и динамически создаст здесь карточки с кнопкой "Удалить" -->
         <section id="order-contents" class="dishes-grid">
             <!-- Сюда рендерятся карточки с кнопкой "Удалить" -->
         </section>
 
+         <!-- РАЗДЕЛ 2: ОФОРМЛЕНИЕ ЗАКАЗА -->
         <h2 style="margin-top: 40px;">Оформление заказа</h2>
         <section class="checkout-form-section">
             <form id="checkout-form" class="order-form">
