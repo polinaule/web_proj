@@ -186,7 +186,7 @@ main h2 {
 }
 
 /* =========================================
-   3. STICKY-ПАНЕЛЬ (для 8 лабы)
+   3. STICKY-ПАНЕЛЬ
    ========================================= */
 .sticky-panel {
     position: sticky;
@@ -202,10 +202,10 @@ main h2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
     z-index: 100;
     border: 1px solid #eee;
 }
-
 .sticky-info {
     font-size: 22px;
     font-weight: 700;
