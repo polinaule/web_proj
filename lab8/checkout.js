@@ -1,37 +1,38 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    // 1. Загружаем данные с API
     const API_TOKEN = '670307b2-e7c6-351b-8b00-f70419a78b45';
     const API_URL = `https://web-basics-api-gagashaggy.msk1.amvera.tech/labs/api/dishes/my?api_key=${API_TOKEN}`;
     const ORDER_URL = `https://web-basics-api-gagashaggy.msk1.amvera.tech/labs/api/orders?api_key=${API_TOKEN}`;
 
+    const orderContents = document.getElementById('order-contents');
+
     let allDishes = [];
     try {
         const response = await fetch(API_URL);
+        if (!response.ok) throw new Error('Ошибка сервера');
         allDishes = await response.json();
     } catch (e) {
-        alert("Ошибка загрузки данных с сервера");
+        console.error("Ошибка загрузки:", e);
+        // Выводим ошибку на страницу, чтобы она не была пустой
+        orderContents.innerHTML = `<p style="color:red; text-align:center; grid-column: 1/-1; font-size: 20px;">Не удалось загрузить данные с сервера. Проверьте интернет.</p>`;
         return;
     }
 
-    // 2. Получаем сохраненные данные (только ID)
+    // Получаем корзину
     let cart = JSON.parse(localStorage.getItem('lunchbox_cart')) || {
         soup: null, main_course: null, salad: null, drink: null, dessert: null
     };
-
-    const orderContents = document.getElementById('order-contents');
 
     // 3. Отрисовка карточек состава заказа
     function renderOrder() {
         orderContents.innerHTML = '';
         let hasItems = false;
 
-        // Проходим по всем категориям
         Object.keys(cart).forEach(category => {
-            const dishId = cart[category]; // ID из localStorage
+            const dishId = cart[category];
             if (!dishId) return;
 
             const dish = allDishes.find(d => d.keyword === dishId);
-            if (!dish) return; // На случай, если блюдо удалили с сервера
+            if (!dish) return;
 
             hasItems = true;
             const card = document.createElement('div');
@@ -41,7 +42,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <p class="price">${dish.price}₽</p>
                 <p class="name">${dish.name}</p>
                 <p class="weight">${dish.count}</p>
-                <button type="button" class="remove-btn" data-category="${category}">Удалить</button>
+                <button type="button" class="remove-btn" data-category="${category}" style="background:#f1eee9; color:#b03f35; border:1px solid #b03f35; font-weight:700;">Удалить</button>
             `;
             orderContents.appendChild(card);
         });
@@ -53,7 +54,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </div>
             `;
         }
-
         updateFormSummary();
     }
 
@@ -86,24 +86,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('summary-price').textContent = `${total}₽`;
     }
 
-    // 5. Обработка удаления блюда
+    // 5. Удаление блюда
     orderContents.addEventListener('click', (e) => {
         if (e.target.classList.contains('remove-btn')) {
             const category = e.target.getAttribute('data-category');
-            
-            // Очищаем категорию в корзине
             cart[category] = null;
             localStorage.setItem('lunchbox_cart', JSON.stringify(cart));
-            
-            // Перерисовываем
             renderOrder();
         }
     });
 
-    // 6. Валидация и отправка формы
+    // 6. Отправка формы
     const form = document.getElementById('checkout-form');
     
-    // Время доставки зависит от переключателя
+    // Управление временем доставки
     const deliveryTypeInputs = document.querySelectorAll('input[name="delivery_type"]');
     const deliveryTimeInput = document.getElementById('delivery_time');
     
@@ -121,7 +117,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // Проверяем комбо (как в ЛР6)
+        // Валидация (ЛР6)
         const hasSoup = !!cart.soup;
         const hasMain = !!cart.main_course;
         const hasSalad = !!cart.salad;
@@ -135,11 +131,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         else if (!hasSoup && !hasMain && !hasSalad) errorMsg = "Выберите главное блюдо";
 
         if (errorMsg) {
-            alert(errorMsg); // Можно заменить на красивое модальное окно
+            alert(errorMsg);
             return;
         }
 
-        // Собираем данные
+        // Сбор данных
         const formData = new FormData(form);
         const data = {
             full_name: formData.get('full_name'),
@@ -147,46 +143,37 @@ document.addEventListener('DOMContentLoaded', async () => {
             phone: formData.get('phone'),
             delivery_address: formData.get('delivery_address'),
             delivery_type: formData.get('delivery_type'),
-            comment: formData.get('comment'),
-            // ID блюд (если null, то null)
+            comment: formData.get('comment') || null,
             soup_id: cart.soup ? allDishes.find(d => d.keyword === cart.soup)?.id : null,
             main_course_id: cart.main_course ? allDishes.find(d => d.keyword === cart.main_course)?.id : null,
             salad_id: cart.salad ? allDishes.find(d => d.keyword === cart.salad)?.id : null,
             drink_id: cart.drink ? allDishes.find(d => d.keyword === cart.drink)?.id : null,
             dessert_id: cart.dessert ? allDishes.find(d => d.keyword === cart.dessert)?.id : null,
+            subscribe: 0 // По умолчанию
         };
 
-        // Время
         if (data.delivery_type === 'by_time') {
             data.delivery_time = formData.get('delivery_time');
-        } else {
-            data.delivery_time = null;
         }
 
-        // Отправка
         try {
             const response = await fetch(ORDER_URL, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             });
 
-            if (!response.ok) throw new Error('Ошибка при оформлении заказа');
+            if (!response.ok) throw new Error('Ошибка сервера');
 
-            // Успех!
             alert("Заказ успешно оформлен!");
-            localStorage.removeItem('lunchbox_cart'); // Очищаем корзину
-            window.location.href = 'index.html'; // Редирект на главную
+            localStorage.removeItem('lunchbox_cart');
+            window.location.href = 'index.html';
 
         } catch (error) {
             console.error(error);
             alert("Не удалось оформить заказ. Попробуйте позже.");
-            // При ошибке localStorage НЕ очищается
         }
     });
 
-    // Первичный рендер
     renderOrder();
 });
