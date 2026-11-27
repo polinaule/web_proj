@@ -64,12 +64,14 @@
     <!-- Меню с блюдами -->
     <main id="menu-container"></main>
 
-    <!-- Sticky-панель оформления -->
+    <!-- Sticky-панель для перехода к оформлению заказа  -->
     <div class="sticky-panel" id="sticky-panel" style="display: none;">
         <div class="sticky-info">
             <span>Итого: </span>
             <span id="sticky-total">0₽</span>
         </div>
+        <!-- Ссылка ведет на новую страницу оформления -->
+        <!-- Класс disabled делает ссылку неактивной, если комбо не собрано -->
         <a href="checkout.html" id="checkout-link" class="checkout-link disabled">Перейти к оформлению</a>
     </div>
 
