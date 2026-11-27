@@ -1,18 +1,28 @@
+// глобальная переменная. Она нужна, чтобы файл order.js (корзина)
+// мог видеть и использовать те же данные, которые загрузились с сервера
 let dishesData = [];
 
+// токен для доступа к API
 const API_TOKEN = '670307b2-e7c6-351b-8b00-f70419a78b45';
 
+// эндпоинт /my означает, что мы запрашиваются именно те блюда,
+// которые пользователь загрузил на сервер через Postman
 const API_URL = `https://web-basics-api-gagashaggy.msk1.amvera.tech/labs/api/dishes/my?api_key=${API_TOKEN}`;
 
+// асинхронная функция для отправки GET-запроса к API
 async function loadDishes() {
     try {
+        // отправляем запрос с помощью fetch
         const response = await fetch(API_URL);
+        // проверяем, что сервер ответил успешно
         if (!response.ok) throw new Error(`Ошибка сервера: ${response.status}`);
-        
+
+        // парсим ответ из формата JSON в обычный JavaScript-массив объектов
         const data = await response.json();
+        // сохраняем полученный массив в глобальную переменную
         dishesData = data; 
         
-        // Если сервер вернул пустой массив (вы еще не загрузили блюда)
+        // проверка на случай, если API вернул пустой массив
         if (dishesData.length === 0) {
             document.getElementById('menu-container').innerHTML = `
                 <p style="text-align:center; padding: 50px; font-size: 20px;">
@@ -20,7 +30,8 @@ async function loadDishes() {
                 </p>`;
             return;
         }
-        
+
+        // если данные есть — вызываем функцию отрисовки меню
         renderMenu();
     } catch (error) {
         console.error("Не удалось загрузить блюда:", error);
@@ -31,11 +42,13 @@ async function loadDishes() {
     }
 }
 
+// функция отрисовки интерфейса
 function renderMenu() {
     const mainContainer = document.getElementById('menu-container');
     if (!mainContainer) return;
     mainContainer.innerHTML = '';
 
+    // конфигурация категорий: ключи для фильтрации и названия фильтров
     const categories = [
         { key: 'soup', title: 'Выберите суп', filters: [{k: 'fish', n: 'рыбный'}, {k: 'meat', n: 'мясной'}, {k: 'veg', n: 'вегетарианский'}] },
         { key: 'main_course', title: 'Выберите главное блюдо', filters: [{k: 'fish', n: 'рыбное'}, {k: 'meat', n: 'мясное'}, {k: 'veg', n: 'вегетарианское'}] },
@@ -89,6 +102,7 @@ function renderMenu() {
             grid.appendChild(card);
         });
 
+        // логика фильтрации
         filtersDiv.addEventListener('click', (e) => {
             if (!e.target.classList.contains('filter-btn')) return;
             const clickedBtn = e.target;
@@ -106,7 +120,7 @@ function renderMenu() {
                 });
             }
         });
-
+        // добавляем готовую секцию с сеткой в основной контейнер
         section.appendChild(grid);
         mainContainer.appendChild(section);
     });
