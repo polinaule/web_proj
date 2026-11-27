@@ -1,28 +1,29 @@
-// Глобальная переменная, в которую запишем данные с сервера
 let dishesData = [];
 
-// Токен и URL для API (используем стандартный эндпоинт /default)
 const API_TOKEN = '670307b2-e7c6-351b-8b00-f70419a78b45';
-const API_URL = `https://web-basics-api-gagashaggy.msk1.amvera.tech/labs/api/dishes/default?api_key=${API_TOKEN}`;
 
-/**
- * Функция загрузки данных (Требование ЛР7)
- */
+const API_URL = `https://web-basics-api-gagashaggy.msk1.amvera.tech/labs/api/dishes/my?api_key=${API_TOKEN}`;
+
 async function loadDishes() {
     try {
         const response = await fetch(API_URL);
-        if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
+        if (!response.ok) throw new Error(`Ошибка сервера: ${response.status}`);
         
         const data = await response.json();
-        
-        // Сохраняем данные в глобальную переменную для order.js
         dishesData = data; 
         
-        // Запускаем отрисовку
+        // Если сервер вернул пустой массив (вы еще не загрузили блюда)
+        if (dishesData.length === 0) {
+            document.getElementById('menu-container').innerHTML = `
+                <p style="text-align:center; padding: 50px; font-size: 20px;">
+                    Вы еще не загрузили свои блюда. Используйте Postman для отправки JSON.
+                </p>`;
+            return;
+        }
+        
         renderMenu();
     } catch (error) {
-        console.error("Не удалось загрузить блюда с сервера:", error);
-        // Выводим сообщение на страницу, если сервер недоступен
+        console.error("Не удалось загрузить блюда:", error);
         document.getElementById('menu-container').innerHTML = `
             <p style="text-align:center; padding: 50px; font-size: 20px;">
                 Не удалось загрузить меню. Сервер временно недоступен.
@@ -30,9 +31,6 @@ async function loadDishes() {
     }
 }
 
-/**
- * Функция отрисовки карточек
- */
 function renderMenu() {
     const mainContainer = document.getElementById('menu-container');
     if (!mainContainer) return;
@@ -67,7 +65,6 @@ function renderMenu() {
         const grid = document.createElement('div');
         grid.className = 'dishes-grid';
 
-        // Берем данные, отфильтрованные по категории и отсортированные по алфавиту
         const filteredDishes = dishesData
             .filter(dish => dish.category === category.key)
             .sort((a, b) => a.name.localeCompare(b.name));
@@ -78,10 +75,8 @@ function renderMenu() {
             card.setAttribute('data-dish', dish.keyword);
             card.setAttribute('data-kind', dish.kind);
             
-            // Обработка картинки: если сервер отдал http://, меняем на https:// (чтобы не было ошибки CORS)
+            // Обработка картинок: меняем http на https и ставим заглушку при ошибке
             let imageUrl = dish.image ? dish.image.replace('http://', 'https://') : '';
-            
-            // Заглушка, если картинки нет вообще
             const placeholder = `https://placehold.co/400x400/f9f6f3/79553d?text=${encodeURIComponent(dish.name)}`;
 
             card.innerHTML = `
@@ -94,7 +89,6 @@ function renderMenu() {
             grid.appendChild(card);
         });
 
-        // Логика работы фильтров (без изменений)
         filtersDiv.addEventListener('click', (e) => {
             if (!e.target.classList.contains('filter-btn')) return;
             const clickedBtn = e.target;
@@ -118,5 +112,4 @@ function renderMenu() {
     });
 }
 
-// Запуск при загрузке страницы
 document.addEventListener('DOMContentLoaded', loadDishes);
