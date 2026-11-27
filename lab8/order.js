@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Читаем сохраненный заказ из localStorage
-    let selected = JSON.parse(localStorage.getItem('lunchbox_cart')) || {
+    let selected = {
         soup: null, main_course: null, salad: null, drink: null, dessert: null
     };
 
@@ -8,12 +7,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const stickyTotal = document.getElementById('sticky-total');
     const checkoutLink = document.getElementById('checkout-link');
 
-    // Функция сохранения в localStorage (сохраняем ТОЛЬКО ключи)
+    // 1. Сохранение ТОЛЬКО ID (ключей) в localStorage
     function saveToStorage() {
-        localStorage.setItem('lunchbox_cart', JSON.stringify(selected));
+        const toSave = {
+            soup: selected.soup ? selected.soup.keyword : null,
+            main_course: selected.main_course ? selected.main_course.keyword : null,
+            salad: selected.salad ? selected.salad.keyword : null,
+            drink: selected.drink ? selected.drink.keyword : null,
+            dessert: selected.dessert ? selected.dessert.keyword : null
+        };
+        localStorage.setItem('lunchbox_cart', JSON.stringify(toSave));
     }
 
-    // Обработка клика по "Добавить"
+    // 2. Восстановление из localStorage после загрузки меню
+    function restoreFromStorage() {
+        const savedIds = JSON.parse(localStorage.getItem('lunchbox_cart'));
+        if (!savedIds) {
+            updateUI();
+            return;
+        }
+
+        // Сопоставляем ключи из localStorage с объектами, пришедшими с API
+        Object.keys(savedIds).forEach(category => {
+            const keyword = savedIds[category];
+            if (keyword) {
+                const dish = dishesData.find(d => d.keyword === keyword);
+                if (dish) selected[category] = dish;
+            }
+        });
+        
+        updateUI();
+    }
+
+    // Клик по кнопке "Добавить"
     document.body.addEventListener('click', (e) => {
         if (e.target.classList.contains('add-btn')) {
             const card = e.target.closest('.dish-card');
@@ -21,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const dish = dishesData.find(d => d.keyword === keyword);
             
             if (dish) {
-                // Перезаписываем категорию
                 selected[dish.category] = dish;
                 saveToStorage();
                 updateUI();
@@ -34,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let total = 0;
         let hasItems = false;
 
-        // Проверяем, какие блюда выбраны и считаем сумму
         Object.values(selected).forEach(item => {
             if (item) {
                 total += item.price;
@@ -42,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Управление панелью
         if (hasItems) {
             stickyPanel.style.display = 'flex';
             stickyTotal.textContent = `${total}₽`;
@@ -50,14 +73,12 @@ document.addEventListener('DOMContentLoaded', () => {
             stickyPanel.style.display = 'none';
         }
 
-        // Проверка на соответствие комбо (ЛР6)
         if (isValidCombo()) {
             checkoutLink.classList.remove('disabled');
         } else {
             checkoutLink.classList.add('disabled');
         }
 
-        // Подсветка карточек
         document.querySelectorAll('.dish-card').forEach(card => {
             const keyword = card.getAttribute('data-dish');
             const isSelected = Object.values(selected).some(item => item && item.keyword === keyword);
@@ -69,28 +90,25 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Функция проверки валидности комбо (по правилам ЛР6)
     function isValidCombo() {
         const hasSoup = !!selected.soup;
         const hasMain = !!selected.main_course;
         const hasSalad = !!selected.salad;
         const hasDrink = !!selected.drink;
 
-        // Условия валидности (должно совпадать с проверкой в checkout)
-        if (!hasSoup && !hasMain && !hasSalad && !hasDrink) return false; // Ничего нет
-        if ((hasSoup || hasMain || hasSalad) && !hasDrink) return false; // Нет напитка
-        if (hasSoup && !hasMain && !hasSalad) return false; // Только суп
-        if (!hasSoup && !hasMain && hasSalad) return false; // Только салат
+        if (!hasSoup && !hasMain && !hasSalad && !hasDrink) return false;
+        if ((hasSoup || hasMain || hasSalad) && !hasDrink) return false;
+        if (hasSoup && !hasMain && !hasSalad) return false;
+        if (!hasSoup && !hasMain && hasSalad) return false;
         
         return true; 
     }
 
-    // При загрузке страницы: восстанавливаем состояние из localStorage
-    // (ждем, пока render.js отрисует карточки)
+    // Ждем, пока render.js загрузит данные с API, и только потом восстанавливаем корзину
     const checkInterval = setInterval(() => {
         if (dishesData && dishesData.length > 0) {
             clearInterval(checkInterval);
-            updateUI();
+            restoreFromStorage();
         }
     }, 100);
 });
