@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const stickyTotal = document.getElementById('sticky-total');
     const checkoutLink = document.getElementById('checkout-link');
 
-    // 1. Сохранение ТОЛЬКО ID (ключей) в localStorage
+    // 1. Сохранение только ID (ключей) в localStorage
     function saveToStorage() {
         const toSave = {
             soup: selected.soup ? selected.soup.keyword : null,
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('lunchbox_cart', JSON.stringify(toSave));
     }
 
-    // 2. Восстановление из localStorage после загрузки меню
+    // 2. При открытии страницы восстанавливаем выбор пользователя
     function restoreFromStorage() {
         const savedIds = JSON.parse(localStorage.getItem('lunchbox_cart'));
         if (!savedIds) {
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Обновление интерфейса
+    // Обновление интерфейса (сумма, подсветка, состояние панели)
     function updateUI() {
         let total = 0;
         let hasItems = false;
@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        // Панель скрыта, если ничего не выбрано
         if (hasItems) {
             stickyPanel.style.display = 'flex';
             stickyTotal.textContent = `${total}₽`;
@@ -73,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
             stickyPanel.style.display = 'none';
         }
 
+        // Ссылка неактивна, если состав не соответствует комбо
         if (isValidCombo()) {
             checkoutLink.classList.remove('disabled');
         } else {
@@ -90,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Проверка соответствия комбо
     function isValidCombo() {
         const hasSoup = !!selected.soup;
         const hasMain = !!selected.main_course;
