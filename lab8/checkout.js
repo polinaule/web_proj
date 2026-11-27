@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const orderContents = document.getElementById('order-contents');
 
     let allDishes = [];
+    // 1. Загружаем данные о блюдах с API, чтобы знать их ID и цены
     try {
         const response = await fetch(API_URL);
         if (!response.ok) throw new Error('Ошибка сервера');
@@ -17,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
-    // Получаем корзину
+    // 2. Получаем сохраненные ID из localStorage
     let cart = JSON.parse(localStorage.getItem('lunchbox_cart')) || {
         soup: null, main_course: null, salad: null, drink: null, dessert: null
     };
@@ -37,6 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             hasItems = true;
             const card = document.createElement('div');
             card.className = 'dish-card';
+            // Кнопка "Удалить" вместо "Добавить"
             card.innerHTML = `
                 <img src="${dish.image}" alt="${dish.name}" onerror="this.src='https://placehold.co/400x400/f9f6f3/79553d?text=${encodeURIComponent(dish.name)}';">
                 <p class="price">${dish.price}₽</p>
@@ -47,6 +49,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             orderContents.appendChild(card);
         });
 
+        //Если ничего не выбрано, выводим текст со ссылкой
         if (!hasItems) {
             orderContents.innerHTML = `
                 <div style="grid-column: 1 / -1; text-align: center; padding: 40px; background: #fff; border-radius: 20px;">
@@ -135,7 +138,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             return;
         }
 
-        // Сбор данных
+        // Сбор данных, включая ID блюд
         const formData = new FormData(form);
         const data = {
             full_name: formData.get('full_name'),
@@ -156,6 +159,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             data.delivery_time = formData.get('delivery_time');
         }
 
+        // Отправка POST-запроса через fetch
         try {
             const response = await fetch(ORDER_URL, {
                 method: 'POST',
@@ -165,6 +169,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (!response.ok) throw new Error('Ошибка сервера');
 
+            // Очищаем localStorage только при успехе
             alert("Заказ успешно оформлен!");
             localStorage.removeItem('lunchbox_cart');
             window.location.href = 'index.html';
